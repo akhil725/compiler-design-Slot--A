@@ -1,0 +1,21 @@
+#include <stdio.h>
+#include <string.h>
+
+void checkComment(char *line) {
+    if (line[0] == '/' && line[1] == '/') {
+        printf("This is a single-line comment\n");
+    } else if (line[0] == '/' && line[1] == '*') {
+        printf("This is a multi-line comment\n");
+    } else {
+        printf("This is not a comment\n");
+    }
+}
+
+int main() {
+    char line[100];
+    printf("Enter a line of code: ");
+    fgets(line, sizeof(line), stdin);
+    checkComment(line);
+    return 0;
+}
+
