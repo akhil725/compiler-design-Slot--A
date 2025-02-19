@@ -1,0 +1,42 @@
+#include <stdio.h>
+#include <ctype.h>
+#include <string.h>
+
+#define MAX_TOKEN_LENGTH 100
+
+// Function prototypes
+void analyzeTokens(char *code);
+
+int main() {
+    char code[] = "int main() { int a = 10 + 20; int b = a - 5 * 2 / 3; }";
+
+    printf("Original Code:\n%s\n\n", code);
+
+    analyzeTokens(code);
+
+    return 0;
+}
+
+// Function to analyze tokens
+void analyzeTokens(char *code) {
+    char token[MAX_TOKEN_LENGTH];
+    int index = 0;
+
+    printf("Tokens:\n");
+    while (*code) {
+        if (isalnum(*code) || *code == '_') {
+            token[index++] = *code;
+        } else {
+            if (index > 0) {
+                token[index] = '\0';
+                printf("IDENTIFIER: %s\n", token);
+                index = 0;
+            }
+            if (strchr("+-*/", *code)) {
+                printf("OPERATOR: %c\n", *code);
+            } else if (!isspace(*code)) {
+                printf("OTHER: %c\n", *code);
+            }
+        }
+        code++;
+    }
